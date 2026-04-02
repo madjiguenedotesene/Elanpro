@@ -14,21 +14,28 @@ export async function POST(req: Request) {
         "Authorization": `Bearer ${apiKey}`
       },
       body: JSON.stringify({
-        model: "mistral-tiny", // Le plus rapide et gratuit au début
+        // CHANGEMENT ICI : On utilise un modèle plus intelligent
+        model: "mistral-small-latest", 
         messages: [
-          { role: "system", content: "Tu es ELAN-BOT d'ELANPRO STUDIOS. Expert CV ATS et Campus France. Réponds court." },
+          { 
+            role: "system", 
+            content: "Tu es ELAN-BOT, l'assistant officiel d'ELANPRO STUDIOS. Tu es un expert en CV ATS, lettres de motivation et procédures Campus France. Ta mission : aider les étudiants avec professionnalisme. Réponds en français pur, évite l'abus de caractères gras (**), ne donne pas de code informatique, et sois chaleureux mais concis." 
+          },
           { role: "user", content: prompt }
-        ]
+        ],
+        temperature: 0.7 // Ajoute ceci pour que l'IA soit moins "robotique"
       })
     });
 
     const data = await response.json();
 
     if (data.choices && data.choices[0]) {
-      return NextResponse.json({ answer: data.choices[0].message.content });
+      // On nettoie un peu la réponse au cas où il reste des espaces bizarres
+      const cleanAnswer = data.choices[0].message.content.trim();
+      return NextResponse.json({ answer: cleanAnswer });
     }
 
-    return NextResponse.json({ answer: "Mistral réfléchit trop... Réessaie !" });
+    return NextResponse.json({ answer: "Désolé, je rencontre une petite zone de turbulences. Réessaie !" });
 
   } catch (error) {
     return NextResponse.json({ answer: "Erreur de connexion ELANPRO. 📡" });
