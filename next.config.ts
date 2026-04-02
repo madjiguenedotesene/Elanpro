@@ -1,14 +1,16 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // ON FORCE LE PASSAGE : Ignore les erreurs de type et les erreurs de style
   typescript: {
-    // !! TRÈS IMPORTANT !!
-    // Cela permet de déployer sur Vercel même s'il y a des erreurs TypeScript.
     ignoreBuildErrors: true,
   },
   eslint: {
-    // On ignore aussi les erreurs de linting pour être sûr que ça passe
     ignoreDuringBuilds: true,
   },
+  // Optionnel : si tu as des images externes (ex: logos), évite les erreurs de domaine
+  images: {
+    unoptimized: true,
+  }
 };
 
 export default nextConfig;
