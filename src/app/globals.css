@@ -1,0 +1,113 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* --- CONFIGURATION POUR L'EXPORT PDF PROFESSIONNEL --- */
+
+@media print {
+  /* 1. On définit la taille de la page et on annule les marges du navigateur */
+  @page {
+    size: A4;
+    margin: 0 !important;
+  }
+
+  /* 2. On cache absolument tout l'éditeur et l'interface de l'application */
+  header, 
+  nav, 
+  button, 
+  input, 
+  textarea,
+  [class*="lg:w-"], 
+  [class*="xl:w-"],
+  [class*="border-r"],
+  .no-print {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+  }
+
+  /* 3. On nettoie les fonds sombres pour l'imprimante */
+  body, 
+  html, 
+  main,
+  [class*="bg-slate-"],
+  [class*="from-slate-"] {
+    background: white !important;
+    color: black !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: visible !important;
+    height: auto !important;
+  }
+
+  /* 4. FORCE L'AFFICHAGE DE LA PHOTO ET DES COULEURS (TRÈS IMPORTANT) */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  /* 5. On force le CV à 100% de sa taille réelle (21cm x 29.7cm) */
+  [class*="origin-top"] {
+    transform: scale(1) !important; /* Annule le zoom scale(0.7) de l'écran */
+    transform-origin: top left !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 21cm !important;
+    height: 29.7cm !important;
+    visibility: visible !important;
+  }
+
+  /* 6. On empêche de couper les blocs (Expériences, Formations) entre deux pages */
+  section {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  /* 7. On s'assure que les images (Photo) sont bien rendues */
+  img {
+    max-width: 100% !important;
+    display: block !important;
+  }
+}
+
+/* --- STYLE DE L'ÉDITEUR (SCROLLBAR) --- */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #0f172a;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 10px;
+}
