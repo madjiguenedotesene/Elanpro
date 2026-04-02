@@ -22,7 +22,6 @@ export default function SpontaneePage() {
 
   if (!mounted) return <div className="min-h-screen bg-black" />;
 
-  // TYPAGE DE L'ÉVÉNEMENT POUR ÉVITER L'ERREUR VERCEL
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>, type: 'cv' | 'letter' | 'proof') => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -191,11 +190,36 @@ export default function SpontaneePage() {
           </div>
         </div>
       )}
+
+      <footer className="bg-black border-t border-white/10 py-24 px-8 mt-20">
+        <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-12">
+          <div className="space-y-4 text-center md:text-left">
+            <img src="/elanpro.png" alt="Logo" className="h-10 opacity-50 hover:opacity-100 transition-opacity mx-auto md:mx-0" />
+            <p className="text-[10px] font-black uppercase tracking-[0.5em] text-slate-700 italic">© 2026 ELANPRO STUDIOS - ALL RIGHTS RESERVED</p>
+          </div>
+          <div className="flex gap-10 text-[10px] font-black uppercase tracking-widest text-slate-400">
+            <Link href="/contact" className="hover:text-white transition-colors">Contact</Link>
+            <Link href="/about" className="hover:text-white transition-colors">Équipe</Link>
+            <Link href="/spontanee" className="hover:text-white transition-colors">Services</Link>
+          </div>
+        </div>
+      </footer>
+
+      <style jsx global>{`
+        @keyframes dance {
+          0%, 100% { transform: translateY(0) rotate(0deg); }
+          25% { transform: translateY(-10px) rotate(-1deg); }
+          75% { transform: translateY(-5px) rotate(1deg); }
+        }
+        .animate-dance {
+          animation: dance 5s ease-in-out infinite;
+        }
+      `}</style>
     </div>
   );
 }
 
-// COMPOSANTS ENFANTS AVEC TYPAGE ANY POUR LE PASSAGE VERCEL
+// COMPOSANTS ENFANTS (EN DEHORS DE LA FONCTION PRINCIPALE)
 function Uploader({ label, file, onChange }: any) {
   return (
     <div className="space-y-3">
