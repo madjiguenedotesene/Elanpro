@@ -60,10 +60,10 @@ export default function ContactPage() {
 
         {menuOpen && (
           <div className="absolute top-20 left-0 w-full bg-black border-b border-white/10 p-8 flex flex-col gap-6 text-2xl font-black uppercase animate-in slide-in-from-top duration-300">
-            <Link href="/editeur" target="_blank">Créateur CV</Link>
-            <Link href="/spontanee" target="_blank">Candidatures</Link>
-            <Link href="/preinscription" target="_blank">Campus France</Link>
-            <Link href="/contact" onClick={() => setMenuOpen(false)}>Contact</Link>
+            <Link href="/" onClick={() => setMenuOpen(false)}>Accueil</Link>  
+            <Link href="/editeur" target="_blank" onClick={() => setMenuOpen(false)}>Créateur CV</Link>
+            <Link href="/spontanee" target="_blank" onClick={() => setMenuOpen(false)}>Candidatures</Link>
+            <Link href="/preinscription" target="_blank" onClick={() => setMenuOpen(false)}>Campus France</Link>
           </div>
         )}
       </nav>
